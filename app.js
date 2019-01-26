@@ -7,7 +7,7 @@ app.use(expressip().getIpInfoMiddleware);
 
 app.get('/', function (req, res) {
     const ipInfo = req.ipInfo;
-    var message = `Hey, you are browsing from ${ipInfo.city}, ${ipInfo.country},' IP:', ${ipInfo.ip}`;
+    var message = `Hey, you are browsing from ${ipInfo.city}, ${ipInfo.country} IP:  ${req.ip}`;
     res.send(message);
 })
 
