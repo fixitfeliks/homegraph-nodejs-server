@@ -3,7 +3,9 @@ var express = require('express');
 const expressip = require('express-ip');
 
 var app = express();
+
 app.use(expressip().getIpInfoMiddleware);
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {
     const ipInfo = req.ipInfo;
