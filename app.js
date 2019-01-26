@@ -1,10 +1,12 @@
 var express = require('express');
+
 const expressip = require('express-ip');
 
 var app = express();
 app.use(expressip().getIpInfoMiddleware);
 
 app.get('/', function (req, res) {
+    const ipInfo = req.ipInfo;
     var message = `Hey, you are browsing from ${ipInfo.city}, ${ipInfo.country}`;
     res.send(message);
 })
