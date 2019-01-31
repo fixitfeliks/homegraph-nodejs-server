@@ -11,7 +11,7 @@ app.get('/node/', function (req, res) {
   //const ipInfo = req.ipInfo;
   //var message = 'your IP is: ' + req.connection.remoteAddress;
   //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-  res.send( req.headers["x-real-ip"] );
+  res.send( req.headers);
 })
 
 var server = app.listen(3000, function () {
