@@ -1,7 +1,5 @@
 var express = require('express');
 
-const expressip = require('express-ip');
-
 var app = express();
 
 app.use(expressip().getIpInfoMiddleware);
@@ -9,7 +7,7 @@ app.use(express.static('public'));
 
 app.get('/node/', function (req, res) {
     const ipInfo = req.ipInfo;
-    var message = `Hey, you are browsing from `;
+    var message = req.headers["user-agent"];
     res.send(message);
 })
 
