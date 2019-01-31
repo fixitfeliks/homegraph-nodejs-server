@@ -6,7 +6,7 @@ app.use(express.static('public'));
 
 
 app.get('/node/', function (req, res) {
-    var message = JSON.stringify(req.ip);
+    var message = req.Headers;
     res.send(message);
 })
 
