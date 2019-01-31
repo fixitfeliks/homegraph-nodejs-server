@@ -6,7 +6,7 @@ app.use(express.static('public'));
 
 
 app.get('/node/', function (req, res) {
-    var message = req.Headers;
+    var message = req.headers;
     res.send(message);
 })
 
