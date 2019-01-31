@@ -9,7 +9,7 @@ app.use(express.static('public'));
 
 app.get('/node/', function (req, res) {
   const ipInfo = req.ipInfo;
-  var message = `Hey, you are browsing from ${ipInfo.city}, ${ipInfo.country}`;
+  var message = 'your IP is: ' + req.connection.remoteAddress`;
   res.send(message);
 })
 
