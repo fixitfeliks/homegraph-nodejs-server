@@ -6,7 +6,7 @@ app.use(express.static('public'));
 
 
 app.get('/node/', function (req, res) {
-    var message = req.ip;
+    var message = req.ips;
     res.send(message);
 })
 
