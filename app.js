@@ -7,7 +7,7 @@ var app = express();
 app.use(expressip().getIpInfoMiddleware);
 app.use(express.static('public'));
 
-app.get('/', function (req, res) {
+app.get('/node/', function (req, res) {
     const ipInfo = req.ipInfo;
     var message = `Hey, you are browsing from `;
     res.send(message);
