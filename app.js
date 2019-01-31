@@ -5,7 +5,7 @@ var app = express();
 app.use(express.static('public'));
 
 app.get('/node/', function (req, res) {
-    var message = {"Browser":req.headers["user-agent"]};
+    var message =req;
     res.send(message);
 })
 
