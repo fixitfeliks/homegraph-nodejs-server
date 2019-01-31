@@ -1,5 +1,6 @@
 var express = require('express');
 var expressip = require('express-ip');
+var geoip = require('geo-from-ip');
 
 var app = express();
 
@@ -11,7 +12,7 @@ app.get('/node/', function (req, res) {
   //const ipInfo = req.ipInfo;
   //var message = 'your IP is: ' + req.connection.remoteAddress;
   //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-  res.send( req.headers);
+  res.send( geoip.allData(req.headers["x-real-ip"]));
 })
 
 var server = app.listen(3000, function () {
