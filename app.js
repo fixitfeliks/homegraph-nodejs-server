@@ -9,7 +9,7 @@ app.use(express.static('public'));
 
 app.get('/', function (req, res) {
     const ipInfo = req.ipInfo;
-    var message = `<HTML>Hey, you are browsing from </HTML>`;
+    var message = `Hey, you are browsing from `;
     res.send(message);
 })
 
