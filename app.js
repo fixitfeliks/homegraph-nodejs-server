@@ -4,23 +4,9 @@ var app = express();
 
 app.use(express.static('public'));
 
-const getCircularReplacer = () => {
-  const seen = new WeakSet();
-  return (key, value) => {
-    if (typeof value === "object" && value !== null) {
-      if (seen.has(value)) {
-        return;
-      }
-      seen.add(value);
-    }
-    return value;
-  };
-};
-
 
 app.get('/node/', function (req, res) {
-    var message =
-JSON.stringify(req, getCircularReplacer());;
+    var message = req.ip;
     res.send(message);
 })
 
