@@ -2,11 +2,9 @@ var express = require('express');
 
 var app = express();
 
-app.use(expressip().getIpInfoMiddleware);
 app.use(express.static('public'));
 
 app.get('/node/', function (req, res) {
-    const ipInfo = req.ipInfo;
     var message = req.headers["user-agent"];
     res.send(message);
 })
