@@ -8,10 +8,10 @@ app.use(express.static('public'));
 
 
 app.get('/node/', function (req, res) {
-  const ipInfo = req.ipInfo;
+  //const ipInfo = req.ipInfo;
   //var message = 'your IP is: ' + req.connection.remoteAddress;
-  var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-  res.send(ip);
+  //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+  res.send(req.ip);
 })
 
 var server = app.listen(3000, function () {
