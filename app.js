@@ -21,7 +21,7 @@ app.get('/node/', function (req, res) {
   req.headers.referer = (req.headers.referer != undefined) ? req.headers.referer : 'Direct';
   res.render('node.html',
              {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
-              "accept-language":req.headers["accept-language"]."state":geo.["region"];
+              "accept-language":req.headers["accept-language"]."state":geo.["region"]
              }          
   );
  // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
