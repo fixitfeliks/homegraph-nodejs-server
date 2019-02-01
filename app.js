@@ -15,7 +15,12 @@ app.get('/node/', function (req, res) {
   //var message = 'your IP is: ' + req.connection.remoteAddress;
   //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   //res.send(JSON.stringify(req.headers,null,4) + "\n" + JSON.stringify(geoip.allData(req.headers["x-real-ip"]),null, 4));
-  res.render('node.html',{"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer});
+  res.headers.referer = ((res.headers.referer != null) ? res.headers.referer : 'Direct';)
+  res.render('node.html',
+             {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
+              
+             }          
+  );
  // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
  // res.send(geoSON);
 })
