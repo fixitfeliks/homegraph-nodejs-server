@@ -14,8 +14,9 @@ app.get('/node/', function (req, res) {
   //const ipInfo = req.ipInfo;
   //var message = 'your IP is: ' + req.connection.remoteAddress;
   //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-  res.send(JSON.stringify(req.headers,null,4) + "\n" + JSON.stringify(geoip.allData(req.headers["x-real-ip"]),null, 4));
+  //res.send(JSON.stringify(req.headers,null,4) + "\n" + JSON.stringify(geoip.allData(req.headers["x-real-ip"]),null, 4));
  // res.render('index.html',{"object":"HIII"});
+  res.send(geoip.allData.code);
 })
 
 var server = app.listen(3000, function () {
