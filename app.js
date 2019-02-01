@@ -17,12 +17,12 @@ app.get('/node/', function (req, res) {
   //res.send(JSON.stringify(req.headers,null,4) + "\n" + JSON.stringify(geoip.allData(req.headers["x-real-ip"]),null, 4));
  
   var geo = geoip.lookup(req.headers["x-real-ip"]);
-  
+  var TS = new Date().toISOString();
   req.headers.referer = (req.headers.referer != undefined) ? req.headers.referer : 'Direct';
   res.render('node.html',
              {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
               "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
-              "ll":geo.ll,"timezone":geo.timezone,"TS"=Date().toISOString()
+              "ll":geo.ll,"timezone":geo.timezone,"TS"=TS
              }          
   );
  // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
