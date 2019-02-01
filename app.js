@@ -22,7 +22,7 @@ app.get('/node/', function (req, res) {
   res.render('node.html',
              {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
               "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
-              "ll":geo.ll,"timezone":geo.timezone,"TS"=TS
+              "ll":geo.ll,"timezone":geo.timezone,"TS":TS
              }          
   );
  // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
