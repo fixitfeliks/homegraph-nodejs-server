@@ -10,7 +10,7 @@ app.set('views',__dirname + '/public');
 
 app.use(express.static('public'));
 
-app.get('/node/', function (req, res) {
+app.get('/', function (req, res) {
   //const ipInfo = req.ipInfo;
   //var message = 'your IP is: ' + req.connection.remoteAddress;
   //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
