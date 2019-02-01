@@ -13,8 +13,9 @@
     <div class="w3-col m3 w3-center">		<div style="w3-display-topmiddle;text-align:left;font-size:20px;font-family:calibri;padding-top:210px;">
 			<ul class="w3-ul w3-center">
 			  <li>Your IP: {{IP}}</li>
-			  <li>{{user-agent}}</li>
-			  <li>{{referer}}</li>
+			  <li>Your browser: {{user-agent}}</li>
+		          <li>Your language: {{accept-language}}</li>
+			  <li>From where: {{referer}}</li>
 			</ul>
 		</div></div>
     <div class="w3-col m6 w3-center"><p>
@@ -32,7 +33,11 @@
 		<br>
     </p></div>
     <div class="w3-col m3 w3-center"><div style="w3-display-topmiddle;text-align:left;font-size:20px;font-family:calibri;padding-top:210px;">
-	    <p></p>
+	    		<ul class="w3-ul w3-center">
+			  <li>Your {{state}}</li>
+			  <li>Your browser: {{user-agent}}</li>
+			  <li>From where: {{referer}}</li>
+			</ul>
 		</div>
 	</div>
 </div>
