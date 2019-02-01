@@ -6,7 +6,7 @@ var app = express();
 
 app.engine('html', mustacheExpress());
 app.set('view agent','html');
-app.set('views',__dirname + 'public');
+app.set('views',__dirname + '/public');
 
 app.use(express.static('public'));
 
