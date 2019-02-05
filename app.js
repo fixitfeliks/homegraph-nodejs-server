@@ -49,11 +49,14 @@ app.get('/dynamo', function(req,res) {
               "ll":geo.ll,"timezone":geo.timezone
     }
   };
+  var params2 = {
+    TableName:"Visitor_History"
+  }
   docClient.put(params, function(err, data) {
     if (err) {
         res.send(JSON.stringify(err));
     } else {
-         res.send(docClient.scan({TableName: "Visitor_Histor"});
+         res.send(docClient.scan(params2);
     }
   });
 });
