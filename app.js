@@ -3,6 +3,22 @@ var mustacheExpress = require('mustache-express');
 var geoip = require('geoip-lite');
 var AWS = require('aws-sdk');
 
+AWS.config.update({
+  region: "us-east-2",
+  endpoint: "com.amazonaws.us-east-2.dynamodb"
+});
+
+var docClient = new AWS.DynamoDB.DocumentClient();
+
+var params = {
+    TableName:"Visitor_History",
+    Item:{
+        "year": "TEST",
+        "title": "TEST",
+    }
+};
+
+
 var app = express();
 
 app.engine('html', mustacheExpress());
