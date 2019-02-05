@@ -53,7 +53,7 @@ app.get('/dynamo', function(req,res) {
     TableName:"Visitor_History"
   };
 
- doClient.get(params2, function(err,data) {res.send("HI")});
+ docClient.scan(params2, function(err,data) {res.send("HI")});
 
 });
 var server = app.listen(3000, function () {
