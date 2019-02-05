@@ -57,7 +57,7 @@ app.get('/dynamo', function(req,res) {
     if (err) {
         res.send(JSON.stringify(err));
     }else{
-       docClient.scan(params2, function(err,data) {res.send(JSON.stringify(data))});
+       docClient.query(params2, function(err,data) {res.send(JSON.stringify(data))});
     }
   });
 
