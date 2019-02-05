@@ -44,10 +44,13 @@ app.get('/', function (req, res) {
   );
  // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
  // res.send(geoSON);
-})
+});
 
+app.get('/dynamo' function(req,res){
+  res.send({"YO":"BRO"});
+});
 var server = app.listen(3000, function () {
     var port = server.address().port
 
     console.log("Example app listening on port:%s", port)
-})
+});
