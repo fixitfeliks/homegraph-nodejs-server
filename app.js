@@ -48,7 +48,7 @@ app.get('/dynamo', function(req,res) {
               "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
               "ll":geo.ll,"timezone":geo.timezone
     }
-  };
+  }
 //  var params2 = {
 //    TableName:"Visitor_History"
 //  };
