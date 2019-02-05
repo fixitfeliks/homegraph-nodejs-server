@@ -51,6 +51,4 @@ app.get('/', function (req, res) {
        // docClient.scan(params2, function (err, data) {
       //    });
 //});
-var server = app.listen(3000, function () {
-    var port = server.address().port;
-});
+var server = app.listen(3000, function () {});
