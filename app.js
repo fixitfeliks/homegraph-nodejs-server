@@ -5,7 +5,7 @@ var AWS = require('aws-sdk');
 
 AWS.config.update({
   region: "us-east-2",
-  endpoint: "com.amazonaws.us-east-2.dynamodb"
+  endpoint: ""https://dynamodb.us-east-2.amazonaws.com""
 });
 
 var docClient = new AWS.DynamoDB.DocumentClient();
@@ -38,11 +38,15 @@ app.get('/', function (req, res) {
 });
 
 app.get('/dynamo', function(req,res) {
+  var TS = new Date().toISOString();
+  var geo = geoip.lookup(req.headers["x-real-ip"]);
   var params = {
     TableName:"Visitor_History",
     Item:{
-        "year": "TEST",
-        "title": "TEST",
+        "Time_Stamp": TS,
+        "IP_ADDRESS": req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
+              "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
+              "ll":geo.ll,"timezone":geo.timezone
     }
   };
   docClient.put(params, function(err, data) {
