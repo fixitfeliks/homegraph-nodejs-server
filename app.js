@@ -44,7 +44,7 @@ app.get('/dynamo', function(req,res) {
     TableName:"Visitor_History",
     Item:{
         "Time_Stamp": TS,
-        "IP_ADDRESS": req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
+        "IP_Address": req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
               "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
               "ll":geo.ll,"timezone":geo.timezone
     }
