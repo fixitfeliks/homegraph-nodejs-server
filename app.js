@@ -52,8 +52,12 @@ app.get('/dynamo', function(req,res) {
   var params2 = {
     TableName:"Visitor_History"
   };
-
- docClient.scan(params2, function(err,data) {res.send("HI")});
+  docClient.put(params, function(err, data) {
+    if (err) {
+        res.send(JSON.stringify(err));
+    }else{
+       docClient.scan(params2, function(err,data) {res.send("HI")});
+    }
 
 });
 var server = app.listen(3000, function () {
