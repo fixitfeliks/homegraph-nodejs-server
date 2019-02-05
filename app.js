@@ -56,7 +56,7 @@ app.get('/dynamo', function(req,res) {
   var params2 = {  
     TableName:"visitor_log",
     ScanIndexForward: "false",
-    Items:10,
+    Limit:10,
     KeyConditionExpression: "#type = :tttt",
     ExpressionAttributeNames:{
         "#type": "data_type"
