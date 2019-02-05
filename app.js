@@ -53,7 +53,7 @@ app.get('/dynamo', function(req,res) {
     } else {
          res.send(JSON.stringify(data, null, 2));
     }
-  
+  }
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
