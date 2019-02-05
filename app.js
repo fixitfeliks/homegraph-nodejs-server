@@ -47,7 +47,7 @@ app.get('/dynamo', function(req,res) {
   };
   docClient.put(params, function(err, data) {
     if (err) {
-        res.send("err");
+        res.send(JSON.stringify(err));
     } else {
          res.send("OK");
     }
