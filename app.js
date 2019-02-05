@@ -50,8 +50,7 @@ app.get('/dynamo', function(req,res) {
     }
   };
   var params2 = {
-    TableName:"Visitor_History",
-    IndexName:"Time_Stamp"
+    TableName:"Visitor_History"
   };
   docClient.put(params, function(err, data) {
     if (err) {
