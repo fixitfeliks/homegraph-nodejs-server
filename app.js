@@ -52,10 +52,10 @@ app.get('/dynamo', function(req,res) {
   var params2 = {
     TableName:"Visitor_History"
   };
-  docClient.put(params, function(err, data) {
-    if (err) {
-        res.send(JSON.stringify(err));
-    } else {
+//  docClient.put(params, function(err, data) {
+//    if (err) {
+//        res.send(JSON.stringify(err));
+//    } else {
         docClient.scan(params2, function (err, data) {
           if (err) {
               res.send(JSON.stringify(err));
@@ -63,8 +63,8 @@ app.get('/dynamo', function(req,res) {
             res.send(JSON.stringify(data));
           }
         });  
-    }
-  });
+  //  }
+ // });
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
