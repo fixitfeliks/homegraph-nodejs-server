@@ -50,7 +50,7 @@ app.get('/', function (req, res) {
         //    res.send(JSON.stringify(data));
        // docClient.scan(params2, function (err, data) {
       //    });
-});
+//});
 var server = app.listen(3000, function () {
     var port = server.address().port
 });
