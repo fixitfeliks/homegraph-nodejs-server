@@ -1,6 +1,7 @@
 var express = require('express');
 var mustacheExpress = require('mustache-express');
 var geoip = require('geoip-lite');
+var AWS = require('aws-sdk');
 
 var app = express();
 
