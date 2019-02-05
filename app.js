@@ -53,7 +53,7 @@ app.get('/dynamo', function(req,res) {
     if (err) {
         res.send(JSON.stringify(err));
     } else {
-         res.send(docClient.get({TableName: "Visitor_Histor",*});
+         res.send(docClient.scan(TableName: "Visitor_Histor");
     }
   });
 });
