@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
   //var message = 'your IP is: ' + req.connection.remoteAddress;
   //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   //res.send(JSON.stringify(req.headers,null,4) + "\n" + JSON.stringify(geoip.allData(req.headers["x-real-ip"]),null, 4));
- 
+
   var geo = geoip.lookup(req.headers["x-real-ip"]);
   var TS = new Date().toISOString();
   req.headers.referer = (req.headers.referer != undefined) ? req.headers.referer : 'Direct';
@@ -31,24 +31,13 @@ app.get('/', function (req, res) {
              {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
               "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
               "ll":geo.ll,"timezone":geo.timezone,"TS":TS
-             }          
+             }
   );
- // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
- // res.send(geoSON);
 });
 
-//  var params2 = {
-//    TableName:"Visitor_History"
-//  };
-//  docClient.put(params, function(err, data) {
-//    if (err) {
-//        res.send(JSON.stringify(err));
-//    } else {
-    //        if (err) {
-          //    res.send(JSON.stringify(err));
-      //    } else { 
-        //    res.send(JSON.stringify(data));
-       // docClient.scan(params2, function (err, data) {
-      //    });
-//});
-var server = app.listen(3000, function () {});
+
+var server = app.listen(3000, function () {
+
+
+
+});
