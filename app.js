@@ -37,18 +37,6 @@ app.get('/', function (req, res) {
  // res.send(geoSON);
 });
 
-app.get('/dynamo', function(req,res) {
-  var TS = new Date().toISOString();
-  var geo = geoip.lookup(req.headers["x-real-ip"]);
-  var params = {
-    TableName:"Visitor_History",
-    Item:{
-        "Time_Stamp": TS,
-        "IP_Address": req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
-              "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
-              "ll":geo.ll,"timezone":geo.timezone
-    }
-  }
 //  var params2 = {
 //    TableName:"Visitor_History"
 //  };
