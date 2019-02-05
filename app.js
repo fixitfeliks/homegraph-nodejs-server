@@ -55,7 +55,13 @@ app.get('/dynamo', function(req,res) {
   };
   var params2 = {  
     TableName:"visitor_log",
-    KeyConditionExpression: "data_type = ip"
+    KeyConditionExpression: "#type = :tttt",
+    ExpressionAttributeNames:{
+        "#type": "data_type"
+    },
+    ExpressionAttributeValues: {
+        ":tttt": ip
+    }
   };
   docClient.put(params, function(err, data) {
     if (err) {
