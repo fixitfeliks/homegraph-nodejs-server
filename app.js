@@ -46,7 +46,7 @@ app.get('/', function (req, res) {
  // res.send(geoSON);
 });
 
-app.get('/dynamo' function(req,res){
+app.get('/dynamo', function(req,res) {
   res.send({"YO":"BRO"});
 });
 var server = app.listen(3000, function () {
