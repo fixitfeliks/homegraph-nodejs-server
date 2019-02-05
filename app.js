@@ -58,6 +58,7 @@ app.get('/dynamo', function(req,res) {
     }else{
        docClient.scan(params2, function(err,data) {res.send("HI")});
     }
+  });
 
 });
 var server = app.listen(3000, function () {
