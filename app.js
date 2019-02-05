@@ -43,18 +43,19 @@ app.get('/dynamo', function(req,res) {
   var params = {
     TableName:"Visitor_History",
     Item:{
-        "Time_Stamp": TS,
-        "IP_Address": req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
-              "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
-              "ll":geo.ll,"timezone":geo.timezone
+        "data_type": "ip",
+        "time_stamp": TS,
+        "ip": req.headers["x-real-ip"],
+      
+        "user_agent":req.headers["user-agent"],"referer":req.headers.referer,
+        "accept_language":req.headers["accept-language"],"region":geo.region,
+        "city":geo.city,"country":geo.country,
+        "ll":geo.ll,"timezone":geo.timezone
     }
   };
   var params2 = {  
-    ExpressionAttributeValues: {
-    ":zero": {N: "0"}
-     },
-    ProjectionExpression: "Time_Stamp > :zero",
-    TableName:"Visitor_History"
+    TableName:"visitor_log",
+    KeyConditionExpression: "data_type = ip"
   };
   docClient.put(params, function(err, data) {
     if (err) {
