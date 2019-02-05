@@ -57,17 +57,15 @@ app.get('/dynamo', function(req,res) {
         res.send(JSON.stringify(err));
     } else {
         docClient.scan(params2, function onScan(err, data) {
-    if (err) {
-        res.send(JSON.stringify(err, null, 2));
-    } else { 
-      res.send(JSON.stringify(data));
-    })
-         
+          if (err) {
+              res.send(JSON.stringify(err, null, 2));
+          } else { 
+            res.send(JSON.stringify(data));
+          }
+        });  
     }
   });
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
-
-    console.log("Example app listening on port:%s", port)
 });
