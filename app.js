@@ -61,7 +61,6 @@ app.get('/dynamo', function(req,res) {
       //    } else { 
         //    res.send(JSON.stringify(data));
        // docClient.scan(params2, function (err, data) {
-
       //    });
 });
 var server = app.listen(3000, function () {
