@@ -51,7 +51,7 @@ app.get('/dynamo', function(req,res) {
   };
   var params2 = {
     TableName:"Visitor_History"
-  }
+  };
   docClient.put(params, function(err, data) {
     if (err) {
         res.send(JSON.stringify(err));
