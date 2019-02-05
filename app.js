@@ -60,7 +60,7 @@ app.get('/dynamo', function(req,res) {
         "#type": "data_type"
     },
     ExpressionAttributeValues: {
-        ":tttt": ip
+        ":tttt": "ip"
     }
   };
   docClient.put(params, function(err, data) {
