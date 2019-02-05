@@ -47,7 +47,13 @@ app.get('/', function (req, res) {
 });
 
 app.get('/dynamo', function(req,res) {
-  res.send({"YO":"BRO"});
+  docClient.put(params, function(err, data) {
+    if (err) {
+        res.send(SON.stringify(err, null, 2));
+    } else {
+         res.send(JSON.stringify(data, null, 2));
+    }
+  
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
