@@ -41,7 +41,7 @@ app.get('/dynamo', function(req,res) {
   var TS = new Date().toISOString();
   var geo = geoip.lookup(req.headers["x-real-ip"]);
   var params = {
-    TableName:"Visitor_History",
+    TableName:"visitor_log",
     Item:{
         "data_type": "ip",
         "time_stamp": TS,
