@@ -58,9 +58,9 @@ app.get('/dynamo', function(req,res) {
 //    } else {
         docClient.scan(params2, function (err, data) {
           if (err) {
-              res.send(JSON.stringify(err));
+          //    res.send(JSON.stringify(err));
           } else { 
-            res.send(JSON.stringify(data));
+        //    res.send(JSON.stringify(data));
           }
         });  
   //  }
