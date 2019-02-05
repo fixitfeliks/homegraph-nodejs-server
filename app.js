@@ -52,13 +52,9 @@ app.get('/dynamo', function(req,res) {
   var params2 = {
     TableName:"Visitor_History"
   };
-  docClient.put(params, function(err, data) {
-    if (err) {
-        res.send(JSON.stringify(err));
-    } else {
-     //    doClient.get(params2, function(err,data) {res.send("HI")});
-    }
-  });
+
+ doClient.get(params2, function(err,data) {res.send("HI")});
+
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
