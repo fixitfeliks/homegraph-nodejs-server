@@ -56,7 +56,7 @@ app.get('/dynamo', function(req,res) {
     if (err) {
         res.send(JSON.stringify(err));
     } else {
-         res.send(docClient.scan(params2);
+         res.send(docClient.scan(params2));
     }
   });
 });
