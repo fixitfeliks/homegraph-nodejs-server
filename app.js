@@ -10,15 +10,6 @@ AWS.config.update({
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 
-var params = {
-    TableName:"Visitor_History",
-    Item:{
-        "year": "TEST",
-        "title": "TEST",
-    }
-};
-
-
 var app = express();
 
 app.engine('html', mustacheExpress());
@@ -47,13 +38,20 @@ app.get('/', function (req, res) {
 });
 
 app.get('/dynamo', function(req,res) {
+  var params = {
+    TableName:"Visitor_History",
+    Item:{
+        "year": "TEST",
+        "title": "TEST",
+    }
+  };
   docClient.put(params, function(err, data) {
     if (err) {
         res.send(SON.stringify(err, null, 2));
     } else {
          res.send(JSON.stringify(data, null, 2));
     }
-  }
+  });
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
