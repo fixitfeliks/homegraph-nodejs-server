@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
   //var message = 'your IP is: ' + req.connection.remoteAddress;
   //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   //res.send(JSON.stringify(req.headers,null,4) + "\n" + JSON.stringify(geoip.allData(req.headers["x-real-ip"]),null, 4));
- 
+
   var geo = geoip.lookup(req.headers["x-real-ip"]);
   var TS = new Date().toISOString();
   req.headers.referer = (req.headers.referer != undefined) ? req.headers.referer : 'Direct';
@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
              {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
               "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
               "ll":geo.ll,"timezone":geo.timezone,"TS":TS
-             }          
+             }
   );
  // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
  // res.send(geoSON);
@@ -45,14 +45,14 @@ app.get('/dynamo', function(req,res) {
         "data_type": "ip",
         "time_stamp": TS,
         "ip": req.headers["x-real-ip"],
-      
+
         "user_agent":req.headers["user-agent"],"referer":req.headers.referer,
         "accept_language":req.headers["accept-language"],"region":geo.region,
         "city":geo.city,"country":geo.country,
         "ll":geo.ll,"timezone":geo.timezone
     }
   };
-  var params2 = {  
+  var params2 = {
     TableName:"visitor_log",
     ScanIndexForward: "false",
     Limit:10,
@@ -76,7 +76,7 @@ app.get('/dynamo', function(req,res) {
 
 app.get('/dynamoDown/:var',function(req,res) {
   var str = req.params.var;
-  var param = {  
+  var param = {
     TableName:"visitor_log",
     ScanIndexForward: "false",
     Limit:1,
@@ -93,8 +93,8 @@ app.get('/dynamoDown/:var',function(req,res) {
   //res.send({"str":str,"param":param});
   docClient.query(param,function(err,data) {res.send(JSON.stringify(data))});
 });
-var server = app.listen(3000, function () {
+var server = app.listen(3003, function () {
     var port = server.address().port
-  
+
     console.log("listening on port...%s", port)
 });
