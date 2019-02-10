@@ -85,7 +85,8 @@ app.get('/dynamoDown/:var',function(req,res) {
         "#timeStamp": "time_stamp"
     },
     ExpressionAttributeValues: {
-        ":tttt": "ip"
+        ":tttt": "ip",
+        (req.params.var)
     }
   };
   //res.send(param);
