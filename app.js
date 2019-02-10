@@ -79,13 +79,14 @@ app.get('/dynamoDown/:var',function(req,res) {
     TableName:"visitor_log",
     ScanIndexForward: "false",
     Limit:1,
-    KeyConditionExpression: "#type = :tttt and #timeStamp < "+"(req.params.var)",
+    KeyConditionExpression: "#type = :tttt and #timeStamp < :ts",
     ExpressionAttributeNames:{
         "#type": "data_type",
         "#timeStamp": "time_stamp"
     },
     ExpressionAttributeValues: {
         ":tttt": "ip",
+        ":ts": req.params.val
     }
   };
   //res.send(param);
