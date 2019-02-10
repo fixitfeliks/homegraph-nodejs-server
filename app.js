@@ -73,6 +73,10 @@ app.get('/dynamo', function(req,res) {
   });
 
 });
+
+app.get('/dynamoDown',function(req,res) {
+  res.send('test');
+});
 var server = app.listen(3000, function () {
     var port = server.address().port
 
