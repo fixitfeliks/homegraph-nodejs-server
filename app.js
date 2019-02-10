@@ -74,11 +74,24 @@ app.get('/dynamo', function(req,res) {
 
 });
 
-app.get('/dynamoDown/:query&:test',function(req,res) {
+app.get('/dynamoDown/:var',function(req,res) {
+  var query = {  
+    TableName:"visitor_log",
+    ScanIndexForward: "false",
+    Limit:1,
+    KeyConditionExpression: "#type = :tttt and #timeStamp < :var",
+    ExpressionAttributeNames:{
+        "#type": "data_type",
+        "#timeStamp": "time_stamp"
+    },
+    ExpressionAttributeValues: {
+        ":tttt": "ip",
+    }
+  };
   res.send(req.params);
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
-
+  
     console.log("listening on port...%s", port)
 });
