@@ -79,7 +79,7 @@ app.get('/dynamoDown/:var',function(req,res) {
     TableName:"visitor_log",
     ScanIndexForward: "false",
     Limit:1,
-    KeyConditionExpression: "#type = :tttt and #timeStamp < req.params.var",
+    KeyConditionExpression: "#type = :tttt and #timeStamp < ",
     ExpressionAttributeNames:{
         "#type": "data_type",
         "#timeStamp": "time_stamp"
@@ -88,7 +88,7 @@ app.get('/dynamoDown/:var',function(req,res) {
         ":tttt": "ip",
     }
   };
-  res.send(query);
+  res.send(req.params.var);
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
