@@ -75,7 +75,7 @@ app.get('/dynamo', function(req,res) {
 });
 
 app.get('/dynamoDown/:var',function(req,res) {
-  var query = {  
+  var param = {  
     TableName:"visitor_log",
     ScanIndexForward: "false",
     Limit:1,
@@ -88,7 +88,7 @@ app.get('/dynamoDown/:var',function(req,res) {
         ":tttt": "ip"
     }
   };
-  res.send(docClient.query(query,function(err,data) {res.send(JSON.stringify(data))});
+  res.send(docClient.query(param,function(err,data) {res.send(JSON.stringify(data))}));
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
