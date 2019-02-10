@@ -74,7 +74,7 @@ app.get('/dynamo', function(req,res) {
 
 });
 
-app.get('/dynamoDown/:query',function(req,res) {
+app.get('/dynamoDown/:query&:test',function(req,res) {
   res.send(req.params);
 });
 var server = app.listen(3000, function () {
