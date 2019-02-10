@@ -88,7 +88,7 @@ app.get('/dynamoDown/:var',function(req,res) {
         ":tttt": "ip"
     }
   };
-  res.send(docClient.query(param,function(err,data) {res.send(JSON.stringify(data))}));
+  docClient.query(param,function(err,data) {res.send(JSON.stringify(data))});
 });
 var server = app.listen(3000, function () {
     var port = server.address().port
