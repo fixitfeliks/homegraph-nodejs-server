@@ -75,7 +75,7 @@ app.get('/dynamo', function(req,res) {
 });
 
 app.get('/dynamoDown/:var',function(req,res) {
-  var str = req.params.val;
+  var str = req.params.var;
   var param = {  
     TableName:"visitor_log",
     ScanIndexForward: "false",
