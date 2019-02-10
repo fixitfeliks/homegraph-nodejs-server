@@ -14,25 +14,44 @@ app.use(express.static('public'));
 
 app.get('/', function (req, res) {
   var TS = new Date().toISOString();
+  let tmp = {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],
+  "referer":req.headers.referer,"accept-language":req.headers["accept-language"],
+   "TS":TS}
   req.headers.referer = (req.headers.referer != undefined) ? req.headers.referer : 'Direct';
-  res.render('node.html',
-             {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
-              "accept-language":req.headers["accept-language"],
-              "TS":TS
-            });
+  res.render('node.html', tmp);
+
+  (async function() {
+        try {
+            const client = new MongoClient(url);
+            await client.connect();
+            const log_db = client.db("visitor_log");
+            let r = await log_db.collection('test').insertOne(tmp);
+            console.log(r);
+        } catch (err) {
+            console.log(err.stack);
+        }
+    })();
 });
 
+app.get('/getVisitorsLog' ,function (req, res) {
+  (async function() {
+      try {
+          const client = new MongoClient(url);
+          await client.connect();
+          const log_db = client.db("visitor_log");
+          let r = await log_db.collection('test').find({});
+          let out = [];
+          r.toArray(function(err, doc){
+              if (err) throw (err);
+              res.send(doc);
+          });
 
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-    var log_db = db.db("visitor_log");
-    const cursor = log_db.collection('test').find({});
-    cursor.each(function(err, doc){
-        if (err)  throw(err);
-        console.log(doc);
-    })
-  db.close();
+      } catch (err) {
+          console.log(err.stack);
+      }
+  })();
 });
+
 
 var server = app.listen(3003, function () {
     var port = server.address().port
