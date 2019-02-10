@@ -75,6 +75,7 @@ app.get('/dynamo', function(req,res) {
 });
 
 app.get('/dynamoDown/:var',function(req,res) {
+  var str = req.params.val;
   var param = {  
     TableName:"visitor_log",
     ScanIndexForward: "false",
@@ -86,10 +87,10 @@ app.get('/dynamoDown/:var',function(req,res) {
     },
     ExpressionAttributeValues: {
         ":tttt": "ip",
-        ":ts": req.params.val
+        ":ts": str
     }
   };
-  res.send(param);
+  res.send(str,param);
   docClient.query(param,function(err,data) {res.send(JSON.stringify(data))});
 });
 var server = app.listen(3000, function () {
