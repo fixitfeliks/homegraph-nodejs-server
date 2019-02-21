@@ -33,25 +33,63 @@ app.get('/', function (req, res) {
     })();
 });
 
-app.get('/getVisitorsLog' ,function (req, res) {
+app.get('/getVisitorsLog/:var' ,function (req, res) {
   (async function() {
       try {
           const client = new MongoClient(url);
           await client.connect();
           const log_db = client.db("visitor_log");
-          let r = await log_db.collection('test').find({});
-          let out = [];
+          let r = await log_db.collection('test').find({}).sort( { TS: -1 } ).limit(parseInt(req.params.var,10)) ;
           r.toArray(function(err, doc){
               if (err) throw (err);
               res.send(doc);
           });
 
-      } catch (err) {
-          console.log(err.stack);
-      }
+  } catch (err) {
+      console.log(err.stack);
+      res.send('MongoDB Error on getVisitorsLog');
+  }
   })();
 });
 
+app.get('/getVisitorsLogUp/:var' ,function (req, res) {
+  (async function() {
+      try {
+          const client = new MongoClient(url);
+          await client.connect();
+          const log_db = client.db("visitor_log");
+          let r = await log_db.collection('test')
+            .find({"TS": {$gt: req.params.var}}).sort( { TS: 1 } ).limit(5) ;
+        //  r
+          r.toArray(function(err, doc){
+              if (err) throw (err);
+              res.send(doc.reverse());
+          });
+      } catch (err) {
+          console.log(err.stack);
+          res.send('MongoDB Error on getVisitorsLogUp');
+      }
+    })();
+  });
+
+  app.get('/getVisitorsLogDown/:var' ,function (req, res) {
+    (async function() {
+        try {
+            const client = new MongoClient(url);
+            await client.connect();
+            const log_db = client.db("visitor_log");
+            let r = await log_db.collection('test')
+              .find({"TS": {$lt: req.params.var}}).sort( { TS: -1 } ).limit(5) ;
+            r.toArray(function(err, doc){
+                if (err) throw (err);
+                res.send(doc);
+            });
+        } catch (err) {
+            console.log(err.stack);
+            res.send('MongoDB Error on getVisitorsLogDown');
+        }
+      })();
+    });
 
 var server = app.listen(3003, function () {
     var port = server.address().port
