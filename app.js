@@ -2,6 +2,7 @@
 var mustacheExpress = require('mustache-express');
 var geoip = require('geoip-lite');
 var AWS = require('aws-sdk');
+const bodyParser = require('body-parser');
 
 AWS.config.update({
   region: "us-east-1"
@@ -17,6 +18,9 @@ app.set('views',__dirname + '/public');
 
 app.use(express.static('public/images'));
 app.use('/login',express.static('public/login.html'))
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function (req, res) {
   //const ipInfo = req.ipInfo;
