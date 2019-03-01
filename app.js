@@ -4,7 +4,7 @@ var geoip = require('geoip-lite');
 var AWS = require('aws-sdk');
 
 AWS.config.update({
-  region: "us-east-1",
+  region: "us-east-1"
 });
 
 var docClient = new AWS.DynamoDB.DocumentClient();
@@ -15,7 +15,7 @@ app.engine('html', mustacheExpress());
 app.set('view agent','html');
 app.set('views',__dirname + '/public');
 
-app.use(express.static('public'));
+app.use('/login',express.static('public/login.html'))
 
 app.get('/', function (req, res) {
   //const ipInfo = req.ipInfo;
@@ -34,6 +34,10 @@ app.get('/', function (req, res) {
   );
  // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
  // res.send(geoSON);
+});
+
+app.post('/login', function(req,res){
+  console.log(req.body.email, ' , ' , req.body.password);
 });
 
 app.get('/dynamo', function(req,res) {
