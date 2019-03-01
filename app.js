@@ -15,6 +15,7 @@ app.engine('html', mustacheExpress());
 app.set('view agent','html');
 app.set('views',__dirname + '/public');
 
+app.use(express.static('public/images'));
 app.use('/login',express.static('public/login.html'))
 
 app.get('/', function (req, res) {
