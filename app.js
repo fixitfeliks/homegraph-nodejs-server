@@ -93,8 +93,7 @@ app.get('/oauth', function(req, res) {
   let redirectUri = req.query.redirect_uri;
   let state = req.query.state;
   let responseType = req.query.response_type;
-  let authCode = req.query.code;
-  console.log(clientId,redirectUri,state,responseType,authCode);
+  console.log(clientId,redirectUri,state,responseType);
   res.send("HI");
 });
 
