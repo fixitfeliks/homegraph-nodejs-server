@@ -312,7 +312,7 @@ function handleAuthCode(req, res) {
                 color: {
                   name: 'soft white',
                   temperature: 2700,
-                },
+                }
               },
               reportStates: [
                 'on',
