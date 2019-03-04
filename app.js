@@ -258,7 +258,7 @@ function handleAuthCode(req, res) {
   }
 
   app.post('/smarthome', function(req, res) {
-    console.log('post /smarthome headers', request.headers);
+    console.log('post /smarthome headers', req.headers);
     let reqdata = req.body;
     console.log('post /smarthome body', reqdata);
 
