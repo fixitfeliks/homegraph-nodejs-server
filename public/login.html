@@ -18,7 +18,7 @@
 		<img src="omw.png">
     <br>
     <div class="w3-container w3-margin-top">
-      <form class="w3-container w3-card-4" method="post">
+      <form class="w3-container w3-card-4" method="post" id='loginform'>
         <p>
         <input class="w3-input" type="text" style="width:100%" name="email" required>
         <label class="w3-label w3-validate">Email</label></p>
@@ -26,7 +26,7 @@
         <input class="w3-input" type="password" style="width:100%" name="password" required>
         <label class="w3-label w3-validate">Password</label></p>
         <p>
-        <button class="w3-btn w3-section w3-black w3-ripple"> Log in </button></p>
+        <button class="w3-btn w3-section w3-black w3-ripple" onclick="formSubmit()"> Log in </button></p>
       </form>
     </div>
     <div class="w3-col" style="width:28%;height:10px;">
@@ -36,6 +36,34 @@
 	</div>
 </div>
 
+<script>
+    function getUrlParameters () {
+        // Get each parameter
+        let query = window.location.search.substr(1);
+        // Split each parameter into a key-value pair
+        let keyValues = query.split('&');
+        let parameterMap = new Map();
+        for (let i in keyValues) {
+            // Split into <key>=<value>
+            let param = keyValues[i];
+            let splitParam = param.split('=');
+            parameterMap.set(splitParam[0], splitParam[1]);
+        }
+        return parameterMap;
+    }
+
+    function formSubmit () {
+        console.log(1);
+        // Get URL parameters
+        let params = getUrlParameters();
+        // Set each hidden input from a value obtained from the URL
+        document.querySelector('[name="redirect_uri"]').value = params.get('redirect_uri');
+        document.querySelector('[name="client_id"]').value = params.get('client_id');
+        document.querySelector('[name="redirect_uri"]').value = params.get('redirect_uri');
+        document.querySelector('[name="state"]').value = params.get('state');
+        document.querySelector('#loginform').submit();
+    }
+</script>
 
 </body>
 

@@ -55,12 +55,6 @@ app.get('/', function(req, res) {
   // res.send(geoSON);
 });
 
-
-
-app.post('/login', function(req, res) {
-  console.log(req.body.email, ' , ', req.body.password);
-});
-
 app.get('/dynamo', function(req, res) {
   let TS = new Date().toISOString();
   let geo = geoip.lookup(req.headers["x-real-ip"]);
@@ -123,6 +117,10 @@ app.get('/oauth', function(req, res) {
   }
 });
 
+
+app.post('/login', function(req, res) {
+  console.log(req.body.email, req.body.password, req.body.client_id, req.body.redirect_uri, req.body.redirect, req.body.state,);
+});
 
 const server = app.listen(3000, function() {
   let port = server.address().port
