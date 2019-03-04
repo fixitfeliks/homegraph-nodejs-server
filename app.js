@@ -95,6 +95,10 @@ app.get('/oauth', function(req, res) {
   let responseType = req.query.response_type;
   let authCode = req.query.code;
   console.log(clientId,redirectUri,state,responseType,authCode);
+<<<<<<< HEAD
+  res.send("HI");
+=======
+>>>>>>> d0f033ed22218e2f052bc6c31a5e6fac85c865c3
 }
 
 var server = app.listen(3000, function () {
