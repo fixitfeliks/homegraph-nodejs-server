@@ -112,6 +112,7 @@ app.get('/oauth', function(req, res) {
     res.redirect(util.format(
       '/login?client_id=%s&redirect_uri=%s&redirect=%s&state=%s',
       clientId, encodeURIComponent(redirectUri), req.path, state));
+      console.log(req.path);
   } else {
     res.send(401);
   }
