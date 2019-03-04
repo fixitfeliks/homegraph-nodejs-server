@@ -41,6 +41,8 @@ app.get('/', function (req, res) {
  // res.send(geoSON);
 });
 
+
+
 app.post('/login', function(req,res){
   console.log(req.body.email, ' , ' , req.body.password);
 });
@@ -83,6 +85,18 @@ app.get('/dynamo', function(req,res) {
 
 });
 
+/*
+*   Start Google HomeGraph API
+*/
+app.get('/oauth', function(req, res) {
+  let clientId = req.query.client_id;
+  let redirectUri = req.query.redirect_uri;
+  let state = req.query.state;
+  let responseType = req.query.response_type;
+  let authCode = req.query.code;
+  console.log(clientId,redirectUri,state,responseType,authCode);
+  res.send("HI");
+}
 
 var server = app.listen(3000, function () {
     var port = server.address().port
