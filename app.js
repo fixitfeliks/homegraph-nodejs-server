@@ -8,7 +8,7 @@ const util = require('util');
 
 const userName = 'user@test.com';
 const userPassword = 'test';
-const userToken = undefined;
+let userToken = undefined;
 
 AWS.config.update({
   region: "us-east-1"
@@ -134,9 +134,9 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/smarthome', function(request, response) {
-  console.log('post /smarthome', request.headers);
+  console.log('post /smarthome headers', request.headers);
   let reqdata = request.body;
-  console.log('post /smarthome', reqdata);
+  console.log('post /smarthome body', reqdata);
 });
 
 function genRandomString() {
