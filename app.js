@@ -272,7 +272,7 @@ function handleAuthCode(req, res) {
         }
       };
       console.log('sync response', JSON.stringify(deviceProps));
-      res.status(200).json(deviceProps
+      res.status(200).json(deviceProps);
       break;
     }
   });
