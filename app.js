@@ -123,8 +123,8 @@ app.post('/login', function(req, res) {
   console.log(req.body.email, req.body.password, req.body.client_id,
     req.body.redirect_uri, req.body.redirect, req.body.state);
 
-  if (userName === req.body.email && userPassword === req.body.password){
-    res.redirect(util.format('%s?access_token=%s&token_type=bearer&state=%s',
+  if (userName === (req.body.email).toLowerCase() && userPassword === req.body.password){
+    res.redirect(util.format('%s?access_token=%s&token_type=bearer&state=%s&code=200',
       decodeURIComponent(req.body.redirect_uri), genRandomString(), req.body.state));
   }
   else{
