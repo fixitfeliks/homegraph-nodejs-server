@@ -262,18 +262,29 @@ function handleAuthCode(req, res) {
     let reqdata = req.body;
     console.log('post /smarthome body', reqdata);
 
-    switch (req.intent) {
-      case 'action.devices.SYNC':
-      let deviceProps = {
-        requestId: reqdata.requestId,
-        payload: {
-          agentUserId: "1234",
-          devices: []
-        }
-      };
-      console.log('sync response', JSON.stringify(deviceProps));
-      res.status(200).json(deviceProps);
-      break;
+    for (let i = 0; i < reqdata.inputs.length; i++) {
+      let input = reqdata.inputs[i];
+      let intent = input.intent;
+      if (!intent) {
+        response.status(401).set({
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        }).json({error: 'missing inputs'});
+        continue;
+      }
+
+      switch (intent) {
+        case 'action.devices.SYNC':
+        let deviceProps = {
+          requestId: reqdata.requestId,
+          payload: {
+            agentUserId: "1234",
+            devices: []
+          }
+        };
+        console.log('sync response', JSON.stringify(deviceProps));
+        res.status(200).json(deviceProps);
+        break;
+      }
     }
   });
 
