@@ -127,9 +127,6 @@ app.post('/login', function(req, res) {
   if (userName === (req.body.email).toLowerCase() && userPassword === req.body.password){
     userToken = genRandomString();
 
-    console.log(util.format('%s?code=%S&state=%s',
-      decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
-
     res.redirect(util.format('%s?code=%s&state=%s',
       decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
   }
@@ -142,6 +139,28 @@ app.all('/token', function(req, res) {
   console.log('/token query', req.query);
   console.log('/token header',req.headers);
   console.log('/token body', req.body);
+
+  let clientId = req.query.client_id
+      ? req.query.client_id : req.body.client_id;
+  let clientSecret = req.query.client_secret
+      ? req.query.client_secret : req.body.client_secret;
+  let grantType = req.query.grant_type
+      ? req.query.grant_type : req.body.grant_type;
+
+  if (clientId === process.env.GOOGLE_REQ_ID && clientSecret === rocess.env.GOOGLE_REQ_SECRET) {
+    if ('authorization_code' == grantType) {
+      return handleAuthCode(req, res);
+    } else if ('refresh_token' == grantType) {
+      return handleRefreshToken(req, res);
+    } else {
+      console.error('grant_type ' + grantType + ' is not supported');
+      return res.status(400)
+          .send('grant_type ' + grantType + ' is not supported');
+    }
+  }else{
+    console.error('missing required parameter');
+    return res.status(400).send('missing required parameter');
+  }
 });
 
 app.post('/smarthome', function(request, response) {
