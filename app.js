@@ -262,15 +262,19 @@ function handleAuthCode(req, res) {
     let reqdata = req.body;
     console.log('post /smarthome body', reqdata);
 
-    let deviceProps = {
-      requestId: reqdata.requestId,
-      payload: {
-        agentUserId: "1234",
-        devices: []
-      }
-    };
-    console.log('sync response', JSON.stringify(deviceProps));
-    res.status(200).json(deviceProps);
+    switch (req.intent) {
+      case 'action.devices.SYNC':
+      let deviceProps = {
+        requestId: reqdata.requestId,
+        payload: {
+          agentUserId: "1234",
+          devices: []
+        }
+      };
+      console.log('sync response', JSON.stringify(deviceProps));
+      res.status(200).json(deviceProps
+      break;
+    }
   });
 
 function genRandomString() {
