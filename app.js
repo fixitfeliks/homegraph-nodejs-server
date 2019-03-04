@@ -225,7 +225,8 @@ function handleAuthCode(req, res) {
     let returnToken = {
       token_type: 'bearer',
       access_token: user.accessToken,
-      refresh_token: user.refreshToken
+      refresh_token: user.refreshToken,
+      expires_in:"10000000000000"
     };
 
     console.log('return getAccessToken = ', returnToken);
