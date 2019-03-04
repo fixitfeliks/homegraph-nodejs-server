@@ -279,7 +279,7 @@ function handleAuthCode(req, res) {
           payload: {
             agentUserId: '1234',
             devices: [{
-              id: String(id),
+              id: '5467',
               properties: {
                 type: 'action.devices.types.LIGHT',
                 traits: [
@@ -293,7 +293,7 @@ function handleAuthCode(req, res) {
                 },
                 name: {
                   defaultNames: ['Smart Light'],
-                  name: `Smart Light ${id}`,
+                  name: `Smart Light 123`,
                   nicknames: 'light',
                 },
                 willReportState: false,
