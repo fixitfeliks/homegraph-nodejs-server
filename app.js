@@ -124,7 +124,7 @@ app.post('/login', function(req, res) {
     req.body.redirect_uri, req.body.redirect, req.body.state);
 
   if (userName === (req.body.email).toLowerCase() && userPassword === req.body.password){
-    userToken = genRandomString
+    userToken = genRandomString();
     console.log(util.format('%s?access_token=%s&token_type=bearer&state=%s&code=200',
       decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
     res.redirect(util.format('%s?access_token=%s&token_type=bearer&state=%s&code=200',
