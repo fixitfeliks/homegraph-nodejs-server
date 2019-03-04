@@ -257,12 +257,10 @@ function handleAuthCode(req, res) {
     });
   }
 
-  app.post('/smarthome', function(request, response) {
+  app.post('/smarthome', function(req, res) {
     console.log('post /smarthome headers', request.headers);
-    let reqdata = request.body;
-    console.log('post /smarthome body', reqdata
-
-    let reqdata = request.body;
+    let reqdata = req.body;
+    console.log('post /smarthome body', reqdata);
 
     let deviceProps = {
       requestId: reqdata.requestId,
@@ -272,7 +270,7 @@ function handleAuthCode(req, res) {
       }
     };
     console.log('sync response', JSON.stringify(deviceProps));
-    response.status(200).json(deviceProps);
+    res.status(200).json(deviceProps);
   });
 
 function genRandomString() {
