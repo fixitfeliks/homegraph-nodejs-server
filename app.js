@@ -266,7 +266,7 @@ function handleAuthCode(req, res) {
       requestId: reqdata.requestId,
       payload: {
         agentUserId: "1234",
-        devices: [{}]
+        devices: []
       }
     };
     console.log('sync response', JSON.stringify(deviceProps));
