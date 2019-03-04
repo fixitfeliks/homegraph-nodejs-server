@@ -120,8 +120,22 @@ app.get('/oauth', function(req, res) {
 
 
 app.post('/login', function(req, res) {
-  console.log(req.body.email, req.body.password, req.body.client_id, req.body.redirect_uri, req.body.redirect, req.body.state);
+  console.log(req.body.email, req.body.password, req.body.client_id,
+    req.body.redirect_uri, req.body.redirect, req.body.state);
+
+  if (userName === req.body.email && userPassword === req.body.password){
+    res.redirect(util.format('%s?access_token=%s&token_type=bearer&state=%s',
+      decodeURIComponent(req.body.redirect_uri), genRandomString(), req.body.state));
+  }
+  else{
+    res.send(401);
+  }
 });
+
+function genRandomString() {
+  return Math.floor(Math.random() *
+      1000000000000000000).toString(36);
+}
 
 const server = app.listen(3000, function() {
   let port = server.address().port
