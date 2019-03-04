@@ -1,16 +1,18 @@
- var express = require('express');
-var mustacheExpress = require('mustache-express');
-var geoip = require('geoip-lite');
-var AWS = require('aws-sdk');
+require('dotenv').config();
+const express = require('express');
+const mustacheExpress = require('mustache-express');
+const geoip = require('geoip-lite');
+const AWS = require('aws-sdk');
 const bodyParser = require('body-parser');
+
 
 AWS.config.update({
   region: "us-east-1"
 });
 
-var docClient = new AWS.DynamoDB.DocumentClient();
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-var app = express();
+const app = express();
 
 app.engine('html', mustacheExpress());
 app.set('view agent','html');
@@ -28,8 +30,8 @@ app.get('/', function (req, res) {
   //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   //res.send(JSON.stringify(req.headers,null,4) + "\n" + JSON.stringify(geoip.allData(req.headers["x-real-ip"]),null, 4));
 
-  var geo = geoip.lookup(req.headers["x-real-ip"]);
-  var TS = new Date().toISOString();
+  let geo = geoip.lookup(req.headers["x-real-ip"]);
+  let TS = new Date().toISOString();
   req.headers.referer = (req.headers.referer != undefined) ? req.headers.referer : 'Direct';
   res.render('node.html',
              {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
@@ -48,9 +50,9 @@ app.post('/login', function(req,res){
 });
 
 app.get('/dynamo', function(req,res) {
-  var TS = new Date().toISOString();
-  var geo = geoip.lookup(req.headers["x-real-ip"]);
-  var params = {
+  let TS = new Date().toISOString();
+  let geo = geoip.lookup(req.headers["x-real-ip"]);
+  let params = {
     TableName:"visitor_log",
     Item:{
         "data_type": "ip",
@@ -63,7 +65,7 @@ app.get('/dynamo', function(req,res) {
         "ll":geo.ll,"timezone":geo.timezone
     }
   };
-  var params2 = {
+  let params2 = {
     TableName:"visitor_log",
     ScanIndexForward: "false",
     Limit:10,
@@ -94,12 +96,16 @@ app.get('/oauth', function(req, res) {
   let state = req.query.state;
   let responseType = req.query.response_type;
   console.log(clientId,redirectUri,state,responseType);
-  res.send("HI");
+  if(clientId === process.env.GOOGLE_REQ_ID){
+    res.send("HI");
+  }else{
+    res.send("NO");
+  }
 });
 
 
-var server = app.listen(3000, function () {
-    var port = server.address().port
+const server = app.listen(3000, function () {
+    let port = server.address().port
 
     console.log("listening on port...%s", port)
 });
