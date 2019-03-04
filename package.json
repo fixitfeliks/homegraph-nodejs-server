@@ -1,0 +1,27 @@
+{
+  "name": "nodeapps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "aws-sdk": "^2.413.0",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "geoip-lite": "^1.3.6",
+    "mustache-express": "^1.2.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flexBombs/nodeServer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flexBombs/nodeServer/issues"
+  },
+  "homepage": "https://github.com/flexBombs/nodeServer#readme"
+}
