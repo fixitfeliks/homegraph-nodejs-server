@@ -10,7 +10,9 @@ const User = {};
 User.name = 'user@test.com';
 User.password = 'test';
 User.authCode = undefined;
-User.expiresAt = undefined;
+User.expiresAt = undefined
+User.accessToken = undefined;
+User.refreshToken = undefined;
 
 AWS.config.update({
   region: "us-east-1"
@@ -128,6 +130,7 @@ app.post('/login', function(req, res) {
 
   if (User.name === (req.body.email).toLowerCase() && User.password === req.body.password){
     User.authCode = genRandomString();
+    User.expiresAt = new Date(Date.now() + (60 * 10000));
 
     res.redirect(util.format('%s?code=%s&state=%s',
       decodeURIComponent(req.body.redirect_uri), User.authCode, req.body.state));
@@ -165,6 +168,12 @@ app.all('/token', function(req, res) {
   }
 });
 
+app.post('/smarthome', function(request, response) {
+  console.log('post /smarthome headers', request.headers);
+  let reqdata = request.body;
+  console.log('post /smarthome body', reqdata);
+});
+
 function handleAuthCode(req, res) {
   console.log('handleAuthCode', req.query);
 
@@ -184,14 +193,76 @@ function handleAuthCode(req, res) {
     return res.status(400).send('invalid code');
   }
 
+  if (new Date(User.expiresAt) < Date.now()) {
+    console.error('expired code');
+    return res.status(400).send('expired code');
+  }
 
+  if (clientId != env.process.clientId) {
+    console.error('invalid code - wrong client');
+    return res.status(400).send('invalid code - wrong client');
+  }
+
+  let token = getAccessToken(User);
+
+  if (!token) {
+    console.error('unable to generate a token', token);
+    return res.status(400).send('unable to generate a token');
+  }
+
+  console.log('respond success', token);
+  return res.status(200).json(token);
 }
+  function getAccessToken(user){
+    let authCode = user.authCode;
 
-app.post('/smarthome', function(request, response) {
-  console.log('post /smarthome headers', request.headers);
-  let reqdata = request.body;
-  console.log('post /smarthome body', reqdata);
-});
+    if (!authCode) {
+      console.error('invalid code');
+      return false;
+    }
+
+    if (new Date(user.expiresAt) < Date.now()) {
+      console.error('expired code');
+      return false;
+    }
+
+    user.accessToken = getRandomString();
+    user.refreshToken = getRandomString();
+
+    let returnToken = {
+      token_type: 'bearer',
+      access_token: user.accessToken,
+      refresh_token: user.refreshToken
+    };
+
+    console.log('return getAccessToken = ', returnToken);
+    return returnToken;
+  }
+
+  function handleRefreshToken(req, res) {
+    let clientId = req.query.client_id
+        ? req.query.client_id : req.body.client_id;
+    let clientSecret = req.query.client_secret
+        ? req.query.client_secret : req.body.client_secret;
+    let refreshToken = req.query.refresh_token
+        ? req.query.refresh_token : req.body.refresh_token;
+
+    if (!(clientId === process.env.GOOGLE_REQ_ID) || !(clientSecret === process.env.GOOGLE_REQ_SECRET)) {
+      console.error('invalid client id or secret %s, %s',
+          clientId, clientSecret);
+      return res.status(500).send('invalid client id or secret');
+    }
+
+    if (!refreshToken) {
+      console.error('missing required parameter');
+      return res.status(500).send('missing required parameter');
+    }
+
+    res.status(200).json({
+      token_type: 'bearer',
+      access_token: refreshToken,
+    });
+  }
 
 function genRandomString() {
   return Math.floor(Math.random() *
