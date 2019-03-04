@@ -123,11 +123,12 @@ app.get('/oauth', function(req, res) {
 
 
 app.post('/login', function(req, res) {
-  console.log(req.body.email, req.body.password, req.body.client_id,
-    req.body.redirect_uri, req.body.redirect, req.body.state);
 
   if (userName === (req.body.email).toLowerCase() && userPassword === req.body.password){
     userToken = genRandomString();
+
+    console.log(util.format('%s?code=%S&state=%s',
+      decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
 
     res.redirect(util.format('%s?code=%S&state=%s',
       decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
