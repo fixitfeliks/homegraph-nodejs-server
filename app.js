@@ -107,12 +107,13 @@ app.get('/oauth', function(req, res) {
   let redirectUri = req.query.redirect_uri;
   let state = req.query.state;
   let responseType = req.query.response_type;
-  console.log(clientId, redirectUri, state, req.path);
+  let authCode = req.query.code;
+
+
+
+  console.log(clientId, redirectUri, state, req.path, responseType,authCode);
   if (clientId === process.env.GOOGLE_REQ_ID) {
-    res.redirect(util.format(
-      '/login?client_id=%s&redirect_uri=%s&redirect=%s&state=%s',
-      clientId, encodeURIComponent(redirectUri), req.path, state));
-      console.log(req.path);
+
   } else {
     res.send(401);
   }
@@ -134,6 +135,8 @@ app.post('/login', function(req, res) {
     res.sendStatus(401);
   }
 });
+
+
 
 app.post('/smarthome', function(request, response) {
   console.log('post /smarthome headers', request.headers);
