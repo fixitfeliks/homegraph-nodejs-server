@@ -278,43 +278,7 @@ function handleAuthCode(req, res) {
           requestId: reqdata.requestId,
           payload: {
             agentUserId: '1234',
-            devices: [{
-              id: '5467',
-              properties: {
-                type: 'action.devices.types.LIGHT',
-                traits: [
-                  'action.devices.traits.OnOff',
-                  'action.devices.traits.Brightness',
-                  'action.devices.traits.ColorTemperature',
-                ],
-                attributes: {
-                  'temperatureMinK': 2000,
-                  'temperatureMaxK': 6500,
-                },
-                name: {
-                  defaultNames: ['Smart Light'],
-                  name: `Smart Light 123`,
-                  nicknames: 'light',
-                },
-                willReportState: false,
-                roomHint: '',
-                deviceInfo: {
-                  manufacturer: 'Smart Home Provider',
-                  model: 'h1337',
-                  swVersion: '1.0.9',
-                  hwVersion: '1.0',
-                }
-              },
-              states: {
-                on: false,
-                online: true,
-                brightness: 80,
-                color: {
-                  name: 'soft white',
-                  temperature: 2700,
-                }
-              }
-            }]
+            devices: []
           }
         };
         console.log('sync response', JSON.stringify(deviceProps));
