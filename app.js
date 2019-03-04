@@ -198,7 +198,7 @@ function handleAuthCode(req, res) {
     return res.status(400).send('expired code');
   }
 
-  if (clientId != process.env.clientId) {
+  if (clientId != process.env.GOOGLE_CLIENT_ID) {
     console.error('invalid code - wrong client');
     return res.status(400).send('invalid code - wrong client');
   }
