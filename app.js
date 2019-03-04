@@ -133,6 +133,12 @@ app.post('/login', function(req, res) {
   }
 });
 
+app.post('/smarthome', function(request, response) {
+  console.log('post /smarthome', request.headers);
+  let reqdata = request.body;
+  console.log('post /smarthome', reqdata);
+});
+
 function genRandomString() {
   return Math.floor(Math.random() *
       1000000000000000000).toString(36);
