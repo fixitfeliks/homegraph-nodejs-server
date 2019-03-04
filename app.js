@@ -161,7 +161,12 @@ app.all('/token', function(req, res) {
     console.error('missing required parameter');
     return res.status(400).send('missing required parameter');
   }
-});
+
+
+function handleAuthCode(req, res) {
+  console.log("Hi");
+  return "Hi";
+}
 
 app.post('/smarthome', function(request, response) {
   console.log('post /smarthome headers', request.headers);
