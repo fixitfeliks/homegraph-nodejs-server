@@ -120,7 +120,7 @@ app.get('/oauth', function(req, res) {
 
 
 app.post('/login', function(req, res) {
-  console.log(req.body.email, req.body.password, req.body.client_id, req.body.redirect_uri, req.body.redirect, req.body.state,);
+  console.log(req.body.email, req.body.password, req.body.client_id, req.body.redirect_uri, req.body.redirect, req.body.state);
 });
 
 const server = app.listen(3000, function() {
