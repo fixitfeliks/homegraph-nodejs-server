@@ -114,7 +114,7 @@ app.get('/oauth', function(req, res) {
   console.log(clientId, redirectUri, state, req.path, responseType,authCode);
   if (clientId === process.env.GOOGLE_REQ_ID) {
     if(!authCode){
-      s.redirect(util.format(
+      res.redirect(util.format(
         '/login?client_id=%s&redirect_uri=%s&redirect=%s&state=%s',
         clientId, encodeURIComponent(redirectUri), req.path, state));
     }
