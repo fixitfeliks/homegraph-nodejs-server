@@ -130,7 +130,7 @@ app.post('/login', function(req, res) {
     console.log(util.format('%s?code=%S&state=%s',
       decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
 
-    res.redirect(util.format('%s?code=%S&state=%s',
+    res.redirect(util.format('%s?code=%s&state=%s',
       decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
   }
   else{
