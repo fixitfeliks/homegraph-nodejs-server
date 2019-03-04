@@ -109,8 +109,6 @@ app.get('/oauth', function(req, res) {
   let responseType = req.query.response_type;
   let authCode = req.query.code;
 
-
-
   console.log(clientId, redirectUri, state, req.path, responseType,authCode);
   if (clientId === process.env.GOOGLE_REQ_ID) {
     if(!authCode){
@@ -130,9 +128,8 @@ app.post('/login', function(req, res) {
 
   if (userName === (req.body.email).toLowerCase() && userPassword === req.body.password){
     userToken = genRandomString();
-    console.log(util.format('%s?access_token=%s&token_type=bearer&state=%s&code=SUCCES',
-      decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
-    res.redirect(util.format('%s?access_token=%s&token_type=bearer&state=%s&code=SUCCES',
+
+    res.redirect(util.format('%s?code=%S&state=%s',
       decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
   }
   else{
@@ -140,7 +137,11 @@ app.post('/login', function(req, res) {
   }
 });
 
-
+app.all('/token', function(req, res) {
+  console.log('/token query', req.query);
+  console.log('/token header',req.headers);
+  console.log('/token body', req.body);
+});
 
 app.post('/smarthome', function(request, response) {
   console.log('post /smarthome headers', request.headers);
