@@ -265,7 +265,7 @@ function handleAuthCode(req, res) {
     let deviceProps = {
       requestId: reqdata.requestId,
       payload: {
-        agentUserId: process.env.USER_AGENT_ID,
+        agentUserId: "1234",
         devices: [{}]
       }
     };
