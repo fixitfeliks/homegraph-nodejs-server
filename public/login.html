@@ -26,6 +26,12 @@
         <input class="w3-input" type="password" style="width:100%" name="password" required>
         <label class="w3-label w3-validate">Password</label></p>
         <p>
+
+        <input type="hidden" name="redirect">
+        <input type="hidden" name="client_id">
+        <input type="hidden" name="redirect_uri">
+        <input type="hidden" name="state" />
+
         <button class="w3-btn w3-section w3-black w3-ripple" onclick="formSubmit()"> Log in </button></p>
       </form>
     </div>
@@ -53,7 +59,6 @@
     }
 
     function formSubmit () {
-        console.log(1);
         // Get URL parameters
         let params = getUrlParameters();
         // Set each hidden input from a value obtained from the URL
