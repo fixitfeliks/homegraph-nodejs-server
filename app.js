@@ -313,12 +313,7 @@ function handleAuthCode(req, res) {
                   name: 'soft white',
                   temperature: 2700,
                 }
-              },
-              reportStates: [
-                'on',
-                'color',
-                'brightness',
-              ]
+              }
             }]
           }
         };
