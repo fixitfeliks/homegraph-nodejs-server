@@ -168,12 +168,6 @@ app.all('/token', function(req, res) {
   }
 });
 
-app.post('/smarthome', function(request, response) {
-  console.log('post /smarthome headers', request.headers);
-  let reqdata = request.body;
-  console.log('post /smarthome body', reqdata);
-});
-
 function handleAuthCode(req, res) {
   console.log('handleAuthCode', req.query);
 
@@ -262,6 +256,24 @@ function handleAuthCode(req, res) {
       access_token: refreshToken,
     });
   }
+
+  app.post('/smarthome', function(request, response) {
+    console.log('post /smarthome headers', request.headers);
+    let reqdata = request.body;
+    console.log('post /smarthome body', reqdata
+
+    let reqdata = request.body;
+
+    let deviceProps = {
+      requestId: reqdata.requestId,
+      payload: {
+        agentUserId: process.env.USER_AGENT_ID,
+        devices: {}
+      }
+    };
+    console.log('sync response', JSON.stringify(deviceProps));
+    response.status(200).json(deviceProps);
+  });
 
 function genRandomString() {
   return Math.floor(Math.random() *
