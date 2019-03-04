@@ -6,9 +6,11 @@ const AWS = require('aws-sdk');
 const bodyParser = require('body-parser');
 const util = require('util');
 
-const userName = 'user@test.com';
-const userPassword = 'test';
-let userToken = undefined;
+const User = {};
+User.name = 'user@test.com';
+User.password = 'test';
+User.authCode = undefined;
+User.expiresAt = undefined;
 
 AWS.config.update({
   region: "us-east-1"
@@ -124,11 +126,11 @@ app.get('/oauth', function(req, res) {
 
 app.post('/login', function(req, res) {
 
-  if (userName === (req.body.email).toLowerCase() && userPassword === req.body.password){
-    userToken = genRandomString();
+  if (User.name === (req.body.email).toLowerCase() && User.password === req.body.password){
+    User.authCode = genRandomString();
 
     res.redirect(util.format('%s?code=%s&state=%s',
-      decodeURIComponent(req.body.redirect_uri), userToken, req.body.state));
+      decodeURIComponent(req.body.redirect_uri), User.authCode, req.body.state));
   }
   else{
     res.sendStatus(401);
@@ -164,8 +166,25 @@ app.all('/token', function(req, res) {
 });
 
 function handleAuthCode(req, res) {
-  console.log("Hi");
-  return "Hi";
+  console.log('handleAuthCode', req.query);
+
+  let clientId = req.query.client_id
+      ? req.query.client_id : req.body.client_id;
+  let clientSecret = req.query.client_secret
+      ? req.query.client_secret : req.body.client_secret;
+  let code = req.query.code ? req.query.code : req.body.code;console.log("Hi");
+
+  if (!code) {
+    console.error('missing required parameter');
+    return res.status(400).send('missing required parameter');
+  }
+
+  if (!User.authCode) {
+    console.error('invalid code');
+    return res.status(400).send('invalid code');
+  }
+
+
 }
 
 app.post('/smarthome', function(request, response) {
