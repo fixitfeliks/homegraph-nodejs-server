@@ -147,7 +147,7 @@ app.all('/token', function(req, res) {
   let grantType = req.query.grant_type
       ? req.query.grant_type : req.body.grant_type;
 
-  if (clientId === process.env.GOOGLE_REQ_ID && clientSecret === rocess.env.GOOGLE_REQ_SECRET) {
+  if (clientId === process.env.GOOGLE_REQ_ID && clientSecret === process.env.GOOGLE_REQ_SECRET) {
     if ('authorization_code' == grantType) {
       return handleAuthCode(req, res);
     } else if ('refresh_token' == grantType) {
