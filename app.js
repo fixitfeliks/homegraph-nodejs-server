@@ -225,8 +225,8 @@ function handleAuthCode(req, res) {
       return false;
     }
 
-    user.accessToken = getRandomString();
-    user.refreshToken = getRandomString();
+    user.accessToken = genRandomString();
+    user.refreshToken = genRandomString();
 
     let returnToken = {
       token_type: 'bearer',
