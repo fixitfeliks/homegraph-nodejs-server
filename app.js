@@ -4,7 +4,11 @@ const mustacheExpress = require('mustache-express');
 const geoip = require('geoip-lite');
 const AWS = require('aws-sdk');
 const bodyParser = require('body-parser');
+const util = require('util');
 
+const userName = 'user@test.com';
+const userPassword = 'test';
+const userToken = undefined;
 
 AWS.config.update({
   region: "us-east-1"
@@ -95,11 +99,13 @@ app.get('/oauth', function(req, res) {
   let redirectUri = req.query.redirect_uri;
   let state = req.query.state;
   let responseType = req.query.response_type;
-  console.log(clientId,redirectUri,state,responseType);
+  console.log(clientId,redirectUri,state,, req.path);
   if(clientId === process.env.GOOGLE_REQ_ID){
-    res.send("HI");
+    res.redirect(util.format(
+        '/login?client_id=%s&redirect_uri=%s&redirect=%s&state=%s',
+        clientId, encodeURIComponent(redirectUri), req.path, state));
   }else{
-    res.send("NO");
+    res.send(401);
   }
 });
 
