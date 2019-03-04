@@ -19,16 +19,18 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 const app = express();
 
 app.engine('html', mustacheExpress());
-app.set('view agent','html');
-app.set('views',__dirname + '/public');
+app.set('view agent', 'html');
+app.set('views', __dirname + '/public');
 
 app.use(express.static('public/images'));
-app.use('/login',express.static('public/login.html'))
+app.use('/login', express.static('public/login.html'))
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
   //const ipInfo = req.ipInfo;
   //var message = 'your IP is: ' + req.connection.remoteAddress;
   //var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
@@ -37,81 +39,93 @@ app.get('/', function (req, res) {
   let geo = geoip.lookup(req.headers["x-real-ip"]);
   let TS = new Date().toISOString();
   req.headers.referer = (req.headers.referer != undefined) ? req.headers.referer : 'Direct';
-  res.render('node.html',
-             {"IP":req.headers["x-real-ip"],"user-agent":req.headers["user-agent"],"referer":req.headers.referer,
-              "accept-language":req.headers["accept-language"],"region":geo.region,"city":geo.city,"country":geo.country,
-              "ll":geo.ll,"timezone":geo.timezone,"TS":TS
-             }
-  );
- // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
- // res.send(geoSON);
+  res.render('node.html', {
+    "IP": req.headers["x-real-ip"],
+    "user-agent": req.headers["user-agent"],
+    "referer": req.headers.referer,
+    "accept-language": req.headers["accept-language"],
+    "region": geo.region,
+    "city": geo.city,
+    "country": geo.country,
+    "ll": geo.ll,
+    "timezone": geo.timezone,
+    "TS": TS
+  });
+  // var geoSON = JSON.stringify(geoip.allData(req.headers["x-real-ip"]).code);
+  // res.send(geoSON);
 });
 
 
 
-app.post('/login', function(req,res){
-  console.log(req.body.email, ' , ' , req.body.password);
+app.post('/login', function(req, res) {
+  console.log(req.body.email, ' , ', req.body.password);
 });
 
-app.get('/dynamo', function(req,res) {
+app.get('/dynamo', function(req, res) {
   let TS = new Date().toISOString();
   let geo = geoip.lookup(req.headers["x-real-ip"]);
   let params = {
-    TableName:"visitor_log",
-    Item:{
-        "data_type": "ip",
-        "time_stamp": TS,
-        "ip": req.headers["x-real-ip"],
+    TableName: "visitor_log",
+    Item: {
+      "data_type": "ip",
+      "time_stamp": TS,
+      "ip": req.headers["x-real-ip"],
 
-        "user_agent":req.headers["user-agent"],"referer":req.headers.referer,
-        "accept_language":req.headers["accept-language"],"region":geo.region,
-        "city":geo.city,"country":geo.country,
-        "ll":geo.ll,"timezone":geo.timezone
+      "user_agent": req.headers["user-agent"],
+      "referer": req.headers.referer,
+      "accept_language": req.headers["accept-language"],
+      "region": geo.region,
+      "city": geo.city,
+      "country": geo.country,
+      "ll": geo.ll,
+      "timezone": geo.timezone
     }
   };
   let params2 = {
-    TableName:"visitor_log",
+    TableName: "visitor_log",
     ScanIndexForward: "false",
-    Limit:10,
+    Limit: 10,
     KeyConditionExpression: "#type = :tttt",
-    ExpressionAttributeNames:{
-        "#type": "data_type"
+    ExpressionAttributeNames: {
+      "#type": "data_type"
     },
     ExpressionAttributeValues: {
-        ":tttt": "ip"
+      ":tttt": "ip"
     }
   };
   docClient.put(params, function(err, data) {
     if (err) {
-        res.send(JSON.stringify(err));
-    }else{
-       docClient.query(params2, function(err,data) {res.send(JSON.stringify(data))});
+      res.send(JSON.stringify(err));
+    } else {
+      docClient.query(params2, function(err, data) {
+        res.send(JSON.stringify(data))
+      });
     }
   });
 
 });
 
 /*
-*   Start Google HomeGraph API
-*/
+ *   Start Google HomeGraph API
+ */
 app.get('/oauth', function(req, res) {
   let clientId = req.query.client_id;
   let redirectUri = req.query.redirect_uri;
   let state = req.query.state;
   let responseType = req.query.response_type;
-  console.log(clientId,redirectUri,state,, req.path);
-  if(clientId === process.env.GOOGLE_REQ_ID){
+  console.log(clientId, redirectUri, state, req.path);
+  if (clientId === process.env.GOOGLE_REQ_ID) {
     res.redirect(util.format(
-        '/login?client_id=%s&redirect_uri=%s&redirect=%s&state=%s',
-        clientId, encodeURIComponent(redirectUri), req.path, state));
-  }else{
+      '/login?client_id=%s&redirect_uri=%s&redirect=%s&state=%s',
+      clientId, encodeURIComponent(redirectUri), req.path, state));
+  } else {
     res.send(401);
   }
 });
 
 
-const server = app.listen(3000, function () {
-    let port = server.address().port
+const server = app.listen(3000, function() {
+  let port = server.address().port
 
-    console.log("listening on port...%s", port)
+  console.log("listening on port...%s", port)
 });
