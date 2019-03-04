@@ -128,7 +128,7 @@ app.post('/login', function(req, res) {
       decodeURIComponent(req.body.redirect_uri), genRandomString(), req.body.state));
   }
   else{
-    res.send(401);
+    res.sendStatus(401);
   }
 });
 
