@@ -322,8 +322,8 @@ function handleAuthCode(req, res) {
         //     devices: []
         //   }
         // };
-        console.log('sync response', JSON.stringify(setDevice(null,reqdata)));
-        res.status(200).json(setDevice(null,reqdata));
+        console.log('sync response', JSON.stringify(setDevice(undefined,reqdata)));
+        res.status(200).json(setDevice(undefined,reqdata));
         break;
       }
     }
