@@ -26,7 +26,6 @@ function setDevice(device, req){
 
 const lightDevice = {
   id: '0',
-  properties:{
     type: 'action.devices.types.LIGHT',
     traits: [
       'action.devices.traits.OnOff',
@@ -36,22 +35,15 @@ const lightDevice = {
       defaultNames: ['SmartLight'],
       name:'Smart Light 0',
       nicknames: ['table lamp']},
-    willReportState: false,
-    roomHint: '',
-    deviceInfo: {
+      willReportState: false,
+      roomHint: '',
+      deviceInfo: {
       manufacturer: 'Phosphr Cloud',
       model:'fp1337',
       swVersion: '0.0.1',
       hwVersion: '0.1.0'},
-    customData: { smartHomeProviderId: 'TESTFelix'}},
-  states:{
-    on:false,
-    online:true,
-    brightness:80,
-    color:{name:'soft white', temperature: 2700}},
-  reportStates: ['on','color','brightness'],
-  nameChanged: false
-}
+    customData: { smartHomeProviderId: 'TESTFelix'}
+  }
 
 
 AWS.config.update({
