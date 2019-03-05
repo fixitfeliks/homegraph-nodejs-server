@@ -315,15 +315,15 @@ function handleAuthCode(req, res) {
 
       switch (intent) {
         case 'action.devices.SYNC':
-        // let deviceProps = {
-        //   requestId: reqdata.requestId,
-        //   payload: {
-        //     agentUserId: '1234',
-        //     devices: []
-        //   }
-        // };
-        console.log('sync response', JSON.stringify(setDevice('',reqdata)));
-        res.status(200).json(setDevice('',reqdata));
+        let deviceProps = {
+          requestId: reqdata.requestId,
+          payload: {
+            agentUserId: '1234',
+            devices: []
+          }
+        };
+        console.log('sync response', JSON.stringify(deviceProps);
+        res.status(200).json(deviceProps);
         break;
       }
     }
