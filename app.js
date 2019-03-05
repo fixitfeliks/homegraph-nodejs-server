@@ -14,6 +14,46 @@ User.expiresAt = undefined
 User.accessToken = undefined;
 User.refreshToken = undefined;
 
+function setDevice(device){
+  return {
+      requestId: reqdata.requestId,
+      payload: {
+        agentUserId: '1234',
+        devices: [device]
+      }
+  };
+}
+
+const lightDevice = {
+  id: '0',
+  properties:{
+    type: 'action.devices.types.LIGHT',
+    traits: [
+      'action.devices.traits.OnOff',
+      'action.devices.traits.Brightness',
+      'action.devices.traits.ColorSpectrum'],
+    name:{
+      defaultNames: ['SmartLight'],
+      name:'Smart Light 0',
+      nicknames: ['table lamp']},
+    willReportState: false,
+    roomHint: '',
+    deviceInfo: {
+      manufacturer: 'Phosphr Cloud',
+      model:'fp1337',
+      swVersion: '0.0.1',
+      hwVersion: '0.1.0'},
+    customData: { smartHomeProviderId: 'TESTFelix'}},
+  states:{
+    on:false,
+    online:true,
+    brightness:80,
+    color:{name:'soft white', temperature: 2700}},
+  reportStates: ['on','color','brightness'],
+  nameChanged: false
+}
+
+
 AWS.config.update({
   region: "us-east-1"
 });
@@ -275,19 +315,26 @@ function handleAuthCode(req, res) {
 
       switch (intent) {
         case 'action.devices.SYNC':
-        let deviceProps = {
-          requestId: reqdata.requestId,
-          payload: {
-            agentUserId: '1234',
-            devices: []
-          }
-        };
+        // let deviceProps = {
+        //   requestId: reqdata.requestId,
+        //   payload: {
+        //     agentUserId: '1234',
+        //     devices: []
+        //   }
+        // };
         console.log('sync response', JSON.stringify(deviceProps));
-        res.status(200).json(deviceProps);
+        res.status(200).json(setDevice(''));
         break;
       }
     }
   });
+
+function registerDevice(){
+  let authToken = User.accessToken;
+  let uid = "1234";
+
+
+}
 
 function genRandomString() {
   return Math.floor(Math.random() *
