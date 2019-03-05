@@ -14,9 +14,9 @@ User.expiresAt = undefined
 User.accessToken = undefined;
 User.refreshToken = undefined;
 
-function setDevice(device){
+function setDevice(device, req){
   return {
-      requestId: reqdata.requestId,
+      requestId: req.requestId,
       payload: {
         agentUserId: '1234',
         devices: [device]
@@ -322,8 +322,8 @@ function handleAuthCode(req, res) {
         //     devices: []
         //   }
         // };
-        console.log('sync response', JSON.stringify(setDevice()));
-        res.status(200).json(setDevice(''));
+        console.log('sync response', JSON.stringify(setDevice('',reqdata)));
+        res.status(200).json(setDevice('',reqdata));
         break;
       }
     }
