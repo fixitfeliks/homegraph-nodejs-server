@@ -34,7 +34,7 @@ const lightDevice = {
     name:{
       defaultNames: ['SmartLight'],
       name:'Smart Light 0',
-      nicknames: ['table lamp']},
+      nicknames: ['Feliks Light']},
       willReportState: false,
       roomHint: '',
       deviceInfo: {
