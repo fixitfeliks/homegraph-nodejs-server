@@ -322,7 +322,7 @@ function handleAuthCode(req, res) {
             devices: []
           }
         };
-        console.log('sync response', JSON.stringify(deviceProps);
+        console.log('sync response', JSON.stringify(deviceProps));
         res.status(200).json(deviceProps);
         break;
       }
