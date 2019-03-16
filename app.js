@@ -141,6 +141,7 @@ app.get('/dynamo', function(req, res) {
 
 app.post('/phosphr', function(req,res){
   console.log(req.body);
+  res.send("OK")
 });
 
 /*
