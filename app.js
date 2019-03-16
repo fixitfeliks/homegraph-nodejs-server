@@ -136,8 +136,21 @@ app.get('/dynamo', function(req, res) {
 });
 
 /*
+ *   Start Phosphr API
+ */
+
+app.post('/phosphr', function(req,res){
+  console.log(req.body);
+});
+
+/*
+ *   End Phosphr API
+ */
+
+/*
  *   Start Google HomeGraph API
  */
+
 app.get('/oauth', function(req, res) {
   let clientId = req.query.client_id;
   let redirectUri = req.query.redirect_uri;
