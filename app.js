@@ -154,7 +154,7 @@ app.post('/phosphr', function(req,res){
           }
         }
         let x = docClient.query(dynamoQuery, function(err,data){
-          if (err) res.send("Error querying for registered user",err);
+          if (err) res.send(200,("Error querying for registered user"+err));
           else{
             console.log("DATA",data.Count);
             if (data.Count === 0){
@@ -170,7 +170,7 @@ app.post('/phosphr', function(req,res){
                   }
                 }
                 let y = docClient.put(dyQry2, function (err, data){
-                  if (err) res.send("Error trying to add registered user", err);
+                  if (err) res.send(200,("Error trying to add registered user" + err));
                   else res.send("OK",data);
                 });
               } else res.send("Passwords dont match");
