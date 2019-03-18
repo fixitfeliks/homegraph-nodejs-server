@@ -156,7 +156,7 @@ app.post('/phosphr', function(req,res){
         let x = docClient.query(dynamoQuery, function(err,data){
           if (err) res.send("Error querying for registered user",err);
           else{
-            console.log("DATA",data.count);
+            console.log("DATA",data.Count);
             if (data.count === 0){
               if (req.body.pwd0 === req.body.pwd1){
                 let dyQry2 = {
