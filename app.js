@@ -137,7 +137,6 @@ app.get('/dynamo', function(req, res) {
 
 /*
  *   Start Phosphr API
- */
 
 app.post('/phosphr', function(req,res){
     switch(req.body.intent){
@@ -146,12 +145,12 @@ app.post('/phosphr', function(req,res){
           TableName: "phosphr_data",
           ScanIndexForward: "false",
           Limit: 1,
-          KeyConditionExpression: "#type1 = :tttt",
+          KeyConditionExpression: "#type1 = :tttt1",
           ExpressionAttributeNames: {
-            "#type": "serial"
+            "#type1": "serial"
           },
           ExpressionAttributeValues: {
-            ":tttt": req.body.id
+            ":tttt1": req.body.id
           }
         }
         let x = docClient.query(dynamoQuery, function(err,data){
