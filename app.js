@@ -146,7 +146,7 @@ app.post('/phosphr', function(req,res){
           TableName: "phosphr_data",
           ScanIndexForward: "false",
           Limit: 1,
-          KeyConditionExpression: "#type = :tttt",
+          KeyConditionExpression: "#type1 = :tttt",
           ExpressionAttributeNames: {
             "#type": "serial"
           },
