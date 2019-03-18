@@ -140,19 +140,26 @@ app.get('/dynamo', function(req, res) {
  */
 
 app.post('/phosphr', function(req,res){
-  console.log(req.body.intent);
   if (req.body.intent === "register"){
-    let serialExists = {
-      TableName: "visitor_log",
-      ScanIndexForward: "false",
-      Limit: 1,
-      KeyConditionExpression: "#type = :tttt",
-      ExpressionAttributeNames: {
-        "#type": "serial"
-      },
-      ExpressionAttributeValues: {
-        ":tttt": req.body.id
-      }
+    switch(req.body.intent){
+      case 'registration':
+        let dynamoQuery = {
+          TableName: "phosphr_data",
+          ScanIndexForward: "false",
+          Limit: 1,
+          KeyConditionExpression: "#type = :tttt",
+          ExpressionAttributeNames: {
+            "#type": "serial"
+          },
+          ExpressionAttributeValues: {
+            ":tttt": req.body.id
+          }
+        }
+        let x = docClient.query(dynamoQuery, function(err,data){
+          if (err) console.log("ERR",err);
+          else console.log("DATA",data);
+        });
+      break;
     }
       console.log("QUERY",serialExists);
   }
