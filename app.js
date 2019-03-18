@@ -156,7 +156,6 @@ app.post('/phosphr', function(req,res){
         let x = docClient.query(dynamoQuery, function(err,data){
           if (err) res.send(200,("Error querying for registered user"+err));
           else{
-            console.log("DATA",data.Count);
             if (data.Count === 0){
               if (req.body.pwd0 === req.body.pwd1){
                 let dyQry2 = {
@@ -174,7 +173,7 @@ app.post('/phosphr', function(req,res){
                   else res.send(200,("OK" + data));
                 });
               } else res.send("Passwords dont match");
-            } else res.send("User Already Exists");
+            } else res.send("Device is already registered");
           }
         });
       break;
