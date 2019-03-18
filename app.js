@@ -137,7 +137,6 @@ app.get('/dynamo', function(req, res) {
 
 /*
  *   Start Phosphr API
- */
 
 app.post('/phosphr', function(req,res){
     switch(req.body.intent){
