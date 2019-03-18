@@ -154,10 +154,27 @@ app.post('/phosphr', function(req,res){
           }
         }
         let x = docClient.query(dynamoQuery, function(err,data){
-          if (err) console.log("ERR",err);
+          if (err) res.send("Error querying for registered user",err);
           else{
             console.log("DATA",data);
-            res.send("OK");
+            if (data.count === 0){
+              if (req.body.pwd0 === req.body.pwd1){
+                let dyQry2 = {
+                  TableName: "phosphr_data",
+                  Item: {
+                    "serial": req.body.id,
+                    "type": req.body.email,
+                    "pwd": req.body.pwd0
+                    //Will create a header scrape function to save all that
+                    //info with a user "registration"
+                  }
+                }
+                let y = docClient.put(dyQry2, function (err, data){
+                  if (err) res.send("Error trying to add registered user", err);
+                  else res.send("OK",data);
+                });
+              } else res.send("Passwords dont match");
+            } else res.send("User Already Exists");
           }
         });
       break;
