@@ -171,7 +171,7 @@ app.post('/phosphr', function(req,res){
                 }
                 let y = docClient.put(dyQry2, function (err, data){
                   if (err) res.send(200,("Error trying to add registered user" + err));
-                  else res.send("OK",data);
+                  else res.send(200,("OK" + data));
                 });
               } else res.send("Passwords dont match");
             } else res.send("User Already Exists");
