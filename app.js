@@ -157,7 +157,7 @@ app.post('/phosphr', function(req,res){
           if (err) res.send("Error querying for registered user",err);
           else{
             console.log("DATA",data.Count);
-            if (data.count === 0){
+            if (data.count === '0'){
               if (req.body.pwd0 === req.body.pwd1){
                 let dyQry2 = {
                   TableName: "phosphr_data",
