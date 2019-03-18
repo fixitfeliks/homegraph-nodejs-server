@@ -141,7 +141,7 @@ app.get('/dynamo', function(req, res) {
 
 app.post('/phosphr', function(req,res){
     switch(req.body.intent){
-      case 'registration':
+      case 'register':
         let dynamoQuery = {
           TableName: "phosphr_data",
           ScanIndexForward: "false",
