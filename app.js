@@ -140,7 +140,22 @@ app.get('/dynamo', function(req, res) {
  */
 
 app.post('/phosphr', function(req,res){
-  console.log(req.body);
+  console.log(req.body.intent);
+  if (req.body.intent === "register"){
+    let serialExists = {
+      TableName: "visitor_log",
+      ScanIndexForward: "false",
+      Limit: 1,
+      KeyConditionExpression: "#type = :tttt",
+      ExpressionAttributeNames: {
+        "#type": "serial"
+      },
+      ExpressionAttributeValues: {
+        ":tttt": req.body.id
+      }
+    }
+      console.log("QUERY",serialExists);
+  }
   res.send("OK")
 });
 
