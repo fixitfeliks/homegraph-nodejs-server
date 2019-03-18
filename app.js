@@ -140,7 +140,6 @@ app.get('/dynamo', function(req, res) {
  */
 
 app.post('/phosphr', function(req,res){
-  if (req.body.intent === "register"){
     switch(req.body.intent){
       case 'registration':
         let dynamoQuery = {
@@ -161,7 +160,6 @@ app.post('/phosphr', function(req,res){
         });
       break;
     }
-      console.log("QUERY",serialExists);
   }
   res.send("OK")
 });
