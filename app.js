@@ -156,12 +156,13 @@ app.post('/phosphr', function(req,res){
         }
         let x = docClient.query(dynamoQuery, function(err,data){
           if (err) console.log("ERR",err);
-          else console.log("DATA",data);
+          else{
+            console.log("DATA",data);
+            res.send("OK");
+          }
         });
       break;
     }
-  }
-  res.send("OK")
 });
 
 /*
