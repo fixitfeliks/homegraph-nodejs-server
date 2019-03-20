@@ -140,47 +140,53 @@ app.get('/dynamo', function(req, res) {
 */
 app.post('/phosphr', function(req,res){
     switch(req.body.intent){
+      case 'home':
+        res.send(req.body.id);
+      break;
       case 'register':
-        let dynamoQuery = {
-          TableName: "phosphr_data",
-          ScanIndexForward: "false",
-          Limit: 1,
-          KeyConditionExpression: "#type1 = :tttt1",
-          ExpressionAttributeNames: {
-            "#type1": "serial"
-          },
-          ExpressionAttributeValues: {
-            ":tttt1": req.body.id
-          }
-        }
-        let x = docClient.query(dynamoQuery, function(err,data){
-          if (err) res.send(200,("Error querying for registered user"+err));
-          else{
-            console.log(data.Items);
-            if (data.Count === 0){
-              if (req.body.pwd0 === req.body.pwd1){
-                let dyQry2 = {
-                  TableName: "phosphr_data",
-                  Item: {
-                    "serial": req.body.id,
-                    "type": req.body.email,
-                    "pwd": req.body.pwd0
-                    //Will create a header scrape function to save all that
-                    //info with a user "registration"
-                  }
-                }
-                let y = docClient.put(dyQry2, function (err, data){
-                  if (err) res.send(200,("Error trying to add registered user" + err));
-                  else res.send(200,("OK" + data));
-                });
-              } else res.send("Passwords dont match");
-            } else res.send("Device is already registered");
-          }
-        });
+        intentPhosphrRegister(req,res);
       break;
     }
 });
 
+function intentPhosphrRegister(req,res){
+  let dynamoQuery = {
+    TableName: "phosphr_data",
+    ScanIndexForward: "false",
+    Limit: 1,
+    KeyConditionExpression: "#type1 = :tttt1",
+    ExpressionAttributeNames: {
+      "#type1": "serial"
+    },
+    ExpressionAttributeValues: {
+      ":tttt1": req.body.id
+    }
+  }
+  let x = docClient.query(dynamoQuery, function(err,data){
+    if (err) res.send(200,("Error querying for registered user"+err));
+    else{
+      console.log(data.Items);
+      if (data.Count === 0){
+        if (req.body.pwd0 === req.body.pwd1){
+          let dyQry2 = {
+            TableName: "phosphr_data",
+            Item: {
+              "serial": req.body.id,
+              "type": req.body.email,
+              "pwd": req.body.pwd0
+              //Will create a header scrape function to save all that
+              //info with a user "registration"
+            }
+          }
+          let y = docClient.put(dyQry2, function (err, data){
+            if (err) res.send(200,("Error trying to add registered user" + err));
+            else res.send(200,("OK" + data));
+          });
+        } else res.send("Passwords dont match");
+      } else res.send("Device is already registered");
+    }
+  });
+}
 /*
  *   End Phosphr API
  */
